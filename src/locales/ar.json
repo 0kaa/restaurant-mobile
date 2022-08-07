@@ -1,0 +1,13 @@
+{
+  "hello": "مرحبا, {name}!",
+  "putYourPhone": "أدخل رقم الهاتف الخاص بك",
+  "putYourName": "أدخل اسمك",
+  "putYourPassword": "أدخل كلمة المرور الخاصة بك",
+  "phone": "رقم الهاتف",
+  "signIn": "تسجيل الدخول",
+  "signUp": "تسجيل",
+  "back": "رجوع",
+  "getStarted": "ابدأ الآن",
+  "name": "الاسم",
+  "password": "كلمة المرور"
+}

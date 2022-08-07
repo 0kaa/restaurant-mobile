@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: Inter;
+    font-weight: 100;
+    src: url("~/public/assets/inter/Inter-Thin.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: Inter;
+    font-weight: 200;
+    src: url("~/public/assets/inter/Inter-ExtraLight.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: Inter;
+    font-weight: 300;
+    src: url("~/public/assets/inter/Inter-Light.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: Inter;
+    font-weight: 400;
+    src: url("~/public/assets/inter/Inter-Regular.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: Inter;
+    font-weight: 500;
+    src: url("~/public/assets/inter/Inter-Medium.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: Inter;
+    font-weight: 600;
+    src: url("~/public/assets/inter/Inter-SemiBold.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: Inter;
+    font-weight: 700;
+    src: url("~/public/assets/inter/Inter-Bold.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: Inter;
+    font-weight: 800;
+    src: url("~/public/assets/inter/Inter-ExtraLight.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: Inter;
+    font-weight: 900;
+    src: url("~/public/assets/inter/Inter-Black.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "Riyadh";
+    src: url("~/public/assets/inter/TatweerAlRiyadh-Light.otf")
+      format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Riyadh";
+    src: url("~/public/assets/inter/TatweerAlRiyadh-Regular.otf")
+      format("truetype");
+    font-weight: bold;
+    font-style: normal;
+  }
+}
+
+* {
+  @apply !font-Riyadh;
+}

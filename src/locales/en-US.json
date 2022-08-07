@@ -1,0 +1,13 @@
+{
+  "hello": "Hello, {name}!",
+  "putYourPhone": "Put your phone number",
+  "putYourName": "Put your name",
+  "putYourPassword": "Put your password",
+  "phone": "Phone",
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+  "back": "Back",
+  "getStarted": "Get started",
+  "name": "Name",
+  "password": "Password"
+}
