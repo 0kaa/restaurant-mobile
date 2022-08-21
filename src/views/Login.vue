@@ -16,6 +16,7 @@
                 <ion-button @click="signIn" expand="block" size="large" strong color="primary">
                     {{ $t('signIn') }}
                 </ion-button>
+                {{ user }}
             </div>
         </ion-content>
     </ion-page>
@@ -52,6 +53,10 @@ export default defineComponent({
         const password = ref<string>('123123');
         const router = useIonRouter();
         const store = useStore();
+        const user = ref('')
+        Promise.resolve(store.getters.getUser).then(res => {
+            user.value = res
+        });
 
         const { mutate: signIn, onDone, error: sendMessageError } = useMutation(gql`
             mutation Login($phone: String!, $password: String!)  {
@@ -83,13 +88,13 @@ export default defineComponent({
         onDone(result => {
             phone.value = '';
             password.value = '';
-            store.dispatch('login', result.data.node);
-            (this as any).$ionicStorage.set('token', result.data.node.token);
+            store.dispatch('login', result.data.node)
             router.navigate('/home', 'forward', 'replace')
         })
 
         return {
             signIn,
+            user,
             sendMessageError,
             phone,
             password,

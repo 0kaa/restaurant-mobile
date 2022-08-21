@@ -9,5 +9,10 @@
   "back": "Back",
   "getStarted": "Get started",
   "name": "Name",
-  "password": "Password"
+  "password": "Password",
+  "symbol": " L.E",
+  "explore": {
+    "title": "Best",
+    "subtitle": "Seller"
+  }
 }

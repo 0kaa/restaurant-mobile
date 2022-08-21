@@ -9,5 +9,10 @@
   "back": "رجوع",
   "getStarted": "ابدأ الآن",
   "name": "الاسم",
-  "password": "كلمة المرور"
+  "password": "كلمة المرور",
+  "symbol": " جنيه",
+  "explore": {
+    "title": "الاكثر",
+    "subtitle": "مبيعا"
+  }
 }

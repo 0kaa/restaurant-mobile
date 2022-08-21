@@ -1,48 +1,41 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
-import TabsPage from "../views/TabsPage.vue";
 import store from "@/store";
-import HomePage from "../views/HomePage.vue";
-import Login from "../views/Login.vue";
-import GetStarted from "../views/GetStarted.vue";
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: "/get-started",
   },
   {
-    path: "/home",
-    name: "home",
-    component: HomePage,
-  },
-  {
     path: "/login",
     name: "login",
-    component: Login,
+    component: () => import("@/views/Login.vue"),
   },
   {
     path: "/get-started",
     name: "get-started",
-    component: GetStarted,
+    component: () => import("@/views/GetStarted.vue"),
   },
   {
-    path: "/tabs/",
-    component: TabsPage,
+    path: "/home/",
+    component: () => import("@/views/HomePage.vue"),
+
     children: [
       {
         path: "",
-        redirect: "/tabs/tab1",
+        redirect: "/home/explore",
       },
       {
-        path: "tab1",
-        component: () => import("@/views/Tab1Page.vue"),
+        path: "explore",
+        component: () => import("@/views/Explore.vue"),
       },
       {
-        path: "tab2",
+        path: "orders",
         component: () => import("@/views/Tab2Page.vue"),
       },
       {
-        path: "tab3",
+        path: "cart",
         component: () => import("@/views/Tab3Page.vue"),
       },
     ],
@@ -55,22 +48,22 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   const unAuthenticationRoutes = ["get-started", "login"];
-  //check if current user is authenticated
-  if (
-    !unAuthenticationRoutes.includes(to.name as string) &&
-    !store.getters.isUserAuthenticated
-  ) {
-    next({ name: "login" });
-  } else if (
-    unAuthenticationRoutes.includes(to.name as string) &&
-    store.getters.isUserAuthenticated
-  ) {
-    next("/home");
-  } else next();
+  store.dispatch("authVerify");
+  setTimeout(() => {
+    if (
+      !unAuthenticationRoutes.includes(to.name as string) &&
+      !store.getters.isUserAuthenticated
+    ) {
+      next({ name: "login" });
+    } else if (
+      unAuthenticationRoutes.includes(to.name as string) &&
+      store.getters.isUserAuthenticated
+    ) {
+      next("/home");
+    } else next();
 
-  //store.dispatch(Actions.VERIFY_AUTH);
-
-  next();
+    next();
+  }, 100);
 });
 
 export default router;

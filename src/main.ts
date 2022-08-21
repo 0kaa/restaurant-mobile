@@ -21,12 +21,13 @@ import "@ionic/vue/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./index.css";
-
-import { IonicVue } from "@ionic/vue";
+import { IonicVue, iosTransitionAnimation } from "@ionic/vue";
 import { createI18n } from "vue-i18n";
 import en from "./locales/en-US.json";
 import ar from "./locales/ar.json";
 import BaseLayout from "./components/BaseLayout.vue";
+
+import { Preferences } from "@capacitor/preferences";
 
 type MessageSchema = typeof en | typeof ar;
 
@@ -38,6 +39,13 @@ const i18n = createI18n<[MessageSchema], "en" | "ar">({
     ar,
   },
 });
+if (deviceLanguage === "ar") {
+  // add direction to root css
+  document.documentElement.setAttribute("dir", "rtl");
+} else {
+  // add direction to root css
+  document.documentElement.setAttribute("dir", "ltr");
+}
 
 import {
   ApolloClient,
@@ -45,10 +53,21 @@ import {
   InMemoryCache,
 } from "@apollo/client/core";
 import { DefaultApolloClient } from "@vue/apollo-composable";
+
 // HTTP connection to the API
 const httpLink = createHttpLink({
   // You should use an absolute URL here
   uri: "http://localhost:8000/graphql",
+  fetch: async (uri: RequestInfo, options: RequestInit) => {
+    const { value } = await Preferences.get({ key: "token" });
+    if (value) {
+      options.headers = {
+        ...options.headers,
+        Authorization: value,
+      };
+    }
+    return fetch(uri, options);
+  },
 });
 
 // Cache implementation
@@ -57,7 +76,7 @@ const cache = new InMemoryCache({
 });
 
 // Create the apollo client
-const apolloClient = new ApolloClient({
+export const apolloClient = new ApolloClient({
   link: httpLink,
   cache,
 });
@@ -65,7 +84,9 @@ const apolloClient = new ApolloClient({
 const app = createApp(App)
   .provide(DefaultApolloClient, apolloClient)
   .use(store)
-  .use(IonicVue)
+  .use(IonicVue, {
+    navAnimation: iosTransitionAnimation,
+  })
   .use(router)
   .use(i18n);
 
